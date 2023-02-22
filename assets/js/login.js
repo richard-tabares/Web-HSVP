@@ -22,7 +22,7 @@ function login() {
         .then(response => response.json())
         .then(data => {
             if (data == 'true') {
-                window.location.href = '/HSVP/adminSite/dashboard.php'
+                window.location.href = '/adminSite/dashboard.php'
             } else {
                 user.classList.add('loginError')
                 pass.classList.add('loginError')
