@@ -1,7 +1,5 @@
-<meta>
 <?php
 include_once('model/consultarNoticia.php');
-//require_once('model/consultarNoticia.php');
 $consultar = new consultarNoticia();
 $res = $consultar->consultarNoticia();
 ?>
@@ -18,11 +16,13 @@ $res = $consultar->consultarNoticia();
   <!-- Fin Head -->
 
 </head>
-
 <body>
 
   <!-- Menu superior -->
 
+<?php
+  include('template/menu.php');
+  ?>
   <!-- Fin Menu -->
 
   <!-- ======= Inicio ======= -->
