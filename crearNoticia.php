@@ -1,3 +1,9 @@
+<?php
+session_start();
+if (!(isset($_SESSION['user']))) {
+  header('location: index.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -72,12 +78,12 @@
           </div>
           <div class="row">
             <div class="col-md-12">
-              Seleccione Imagen de la Noticia: 
-            <input class="" name="fotoNoticia" id="fotoNoticia" type="file" required>
+              Seleccione Imagen de la Noticia:
+              <input class="" name="fotoNoticia" id="fotoNoticia" type="file" required>
             </div>
             <div class="col-md-12">
-              Seleccione Archivos Adjuntos: 
-            <input class="" name="adjunto[]" id="adjunto[]" type="file" multiple="">
+              Seleccione Archivos Adjuntos:
+              <input class="" name="adjunto[]" id="adjunto[]" type="file" multiple="">
             </div>
           </div>
           <div class="row">
