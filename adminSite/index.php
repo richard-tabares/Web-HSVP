@@ -12,16 +12,14 @@
 <body style="margin: 0;">
     <div class="loginContainer">
         <div class="login">
-            <a href="../">
-                <div class="loginCerrar">X</div>
-            </a>
             <h1>Login</h1>
             <input type="text" name="usuario" id="usuario" placeholder="Usuario" required>
             <input type="password" name="pass" id="pass" placeholder="Contraseña" required>
-            <button type="" id="btnLogin">Iniciar Sesion</button>
+            <a><button type="" class="btnLogin" id="btnLogin">Iniciar</button></a>
+            <a href="../"><button type="" class="btnCancelar" id="btnCancelar">Cancelar</button></a>
         </div>
     </div>
-    <script src="../assets/js/login.js"></script>
+    <script src="../assets/js/scripts.js"></script>
 </body>
 
 </html>

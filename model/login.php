@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $jsonData = json_decode(file_get_contents('php://input'));
     $user = $jsonData->user;
     $pass = $jsonData->pass;
-    $query = $conectar->query("select usuario,contrasena from usuarios where usuario = '$user' and contrasena = '$pass'");
+    $query = $conectar->query("select usuario,contrasena from usuarios where usuario COLLATE utf8_bin = '$user' and contrasena COLLATE utf8_bin = '$pass'");
     $cont = mysqli_num_rows($query);
     
     if ($cont == 1) {
