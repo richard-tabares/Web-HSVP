@@ -65,7 +65,7 @@
                                 <a href="documentos/Estados Financieros/2022/BALANCE GENERAL COMPARATIVO SEPTIEMBRE 2022.pdf" target="_blank">Estados Financieros Comparativo Septiembre 2022</a>
                                 <a href="documentos/Estados Financieros/2022/BALANCE GENERAL COMPARATIVO OCTUBRE 2022.pdf" target="_blank">Estados Financieros Comparativo Octubre 2022</a>
                                 <a href="documentos/Estados Financieros/2022/BALANCE GENERAL COMPARATIVO NOVIEMBRE 2022.pdf" target="_blank">Estados Financieros Comparativo Noviembre 2022</a>
-                                <!-- <a href="documentos/Estados Financieros/2022/ESTADOS FINANCIEROS COMPARATIVO DICIEMBRE 2022.pdf" target="_blank">Estados Financieros Comparativo Dicimebre 2022</a> -->
+                                <a href="documentos/Estados Financieros/2022/BALANCE GENERAL COMPARATIVO DICIEMBRE 2022.pdf" target="_blank">Estados Financieros Comparativo Dicimebre 2022</a>
                             </p>
                         </div>
                     </li>
