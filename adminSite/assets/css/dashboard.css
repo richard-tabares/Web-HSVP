@@ -17,19 +17,19 @@ body {
 -----------------------------------------------*/
 
 ::-webkit-scrollbar {
-  @apply bg-gray-400 w-3;
+  @apply bg-gray-400 w-3
 }
 
 ::-webkit-scrollbar-button {
-  @apply bg-primary text-red-500;
+  @apply bg-primary text-red-500
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-primary;
+  @apply bg-primary
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-gray-700;
+  @apply bg-gray-700
 }
 
 /*----------------------------------------------
@@ -51,7 +51,7 @@ body {
   text-overflow: ellipsis;
 }
 
-.listNews td {
+td {
   padding: 10px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -60,18 +60,37 @@ body {
 input[type="file"] {
   display: none;
 }
-input[type="date"]::-webkit-calendar-picker-indicator {
-  
-}
-.tr{
-  @apply border-b hover:border-gray-300 hover:shadow-md cursor-pointer
+
+/* input[type="date"]::-webkit-calendar-picker-indicator {} */
+
+.tr {
+  @apply border-b hover:border-gray-300 hover:shadow-md hover:bg-[#f6d7ac] cursor-pointer transition-all
 }
 
 .inputText {
-  @apply h-10 border border-gray-400 rounded pl-3
+  @apply h-12 border border-gray-400 rounded pl-3
 }
-.inputSearch {
-  @apply h-10 border border-gray-400 rounded pl-9
+
+.inputs {
+  @apply hover:bg-gray-100 h-12 border border-gray-400 rounded
+}
+
+.inputSelect {
+  @apply hover:bg-gray-100 h-12 border border-gray-400 rounded w-52 pl-3
+}
+
+.titleTable{
+  @apply bg-primary text-gray-200 text-left
+}
+
+.titleTable th{
+  @apply px-[10px] py-5
+}
+.titleTable th:first-child{
+  @apply px-[10px] py-5 rounded-tl-md
+}
+.titleTable th:last-child{
+  @apply px-[10px] py-5 rounded-tr-md
 }
 
 .createNews td {
@@ -86,15 +105,15 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 #BUTTONS
 -----------------------------------------------*/
 .fa-trash-can {
-  @apply p-2 rounded-full hover:bg-red-200
+  @apply p-2 rounded-full hover:bg-[#f0bc74]
 }
 
 .btn-primary {
-  @apply px-5 py-2 bg-primary text-white rounded hover:bg-gray-700 cursor-pointer
+  @apply px-5 py-3 text-primary rounded-md bg-[#f0bc74] hover:bg-[#d8a968] cursor-pointer
 }
 
 .btn-second {
-  @apply px-5 py-2 bg-gray-400 text-gray-700 rounded cursor-pointer
+  @apply px-5 py-3 bg-[#f6d7ac] text-gray-700 rounded cursor-pointer
 }
 
 /*----------------------------------------------
@@ -103,6 +122,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .required {
   @apply border border-red-400
+}
+
+.noSolve{
+  @apply bg-red-300 p-3 rounded
+}
+.solve{
+  @apply bg-green-300 p-3 rounded
 }
 
 /*----------------------------------------------

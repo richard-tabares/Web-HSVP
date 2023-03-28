@@ -4,9 +4,13 @@ const btnCerrarMsg = document.querySelector("#cerrarMsg")
 const btnDeleteNews = document.querySelector("#btnDeleteNews")
 const btnUpdateNews = document.querySelector("#btnUpdateNews")
 const btnDate = document.querySelector("#btnDate")
-const inputSearch = document.querySelector('.inputSearch')
-const inputSearchDate = document.querySelector('.inputSearchDate')
+const inputSearch = document.querySelector('#inputSearch')
+const inputSearchDate = document.querySelector('#inputSearchDate')
 const news = document.querySelector("#news")
+const contentPqrsf = document.querySelector(".contentPqrsf")
+const typePqrsf = document.querySelector("#typePqrsf")
+const statePqrsf = document.querySelector("#statePqrsf")
+const datePqrsf = document.querySelector("#datePqrsf")
 
 
 /*----------------------------------------
@@ -95,6 +99,13 @@ async function allNews() {
 }
 
 async function renderNews(datos) {
+    const htmlHead = `
+        <tr class="titleTable">
+            <th>Noticia</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+        </tr>
+        `
     if (datos != "") {
         const html = await datos.map(data => {
             return `
@@ -105,7 +116,7 @@ async function renderNews(datos) {
             </tr>
             `
         }).join('')
-        news.innerHTML = html
+        news.innerHTML = htmlHead + html
     } else {
         news.innerHTML = `<h1 class="font-bold text text-2xl text-center">Sin Resultados</h1>`
     }
@@ -241,7 +252,7 @@ async function showAttach(idNoticia) {
         }).join('')
         attach.innerHTML = html2
     } else {
-        attach.innerHTML = "Sin archivos adjuntos"
+        attach.innerHTML = `<tr><td>Sin archivos adjuntos</td></tr>`
     }
 }
 
@@ -309,11 +320,196 @@ function requiredNew() {
 }
 
 /*----------------------------------------
+            PQRSF
+-----------------------------------------*/
+
+async function allPqrsf() {
+    let datos = []
+    const url = "/adminSite/model/allPqrsf.php"
+    await fetch(url)
+        .then(response => response.json())
+        .then(data => datos.push(...data))
+    renderPqrsf(datos)
+}
+
+async function searchPqrsf() {
+    const datos = []
+    const type = typePqrsf.value
+    const state = statePqrsf.value
+    const date = datePqrsf.value
+    const url = "/adminSite/model/allPqrsf.php"
+    const method = "POST";
+    const data = new FormData()
+    data.append("type", type)
+    data.append("state", state)
+    data.append("date", date)
+    const response = await fetch(url, {
+        method: method,
+        body: data
+    })
+    await response.json()
+        .then(data => datos.push(...data))
+    renderPqrsf(datos)
+} 
+
+async function renderPqrsf(datos) {
+    let tipoProceso = ""
+    const htmlHead = `
+        <tr class="titleTable">
+            <th class="">Fecha</th>
+            <th class="">Radicado</th>
+            <th class="">Tipo de Proceso</th>
+            <th class="">Estado</th>
+        </tr>
+        `
+    if (datos != "") {
+        const html = await datos.map(data => {
+            return `
+            <tr class="tr">
+                <td data-keyPqrsf="${data.idpqrsf}" onClick="readPqrsf(event)">${data.fecha}</td>
+                <td data-keyPqrsf="${data.idpqrsf}" onClick="readPqrsf(event)">${data.radicado}</td>
+                <td data-keyPqrsf="${data.idpqrsf}" onClick="readPqrsf(event)">${tipoPro(data.tipoProceso)}</td>
+                <td data-keyPqrsf="${data.idpqrsf}" onClick="readPqrsf(event)">${data.estado}</td>
+            </tr>
+            `
+        }).join('')
+        pqrsf.innerHTML = htmlHead + html
+    } else {
+        pqrsf.innerHTML = `<h1 class="font-bold text text-2xl text-center">Sin Resultados</h1>`
+    }
+
+
+}
+
+async function readPqrsf(e) {
+    //insertamos la vista de edicion de la noticia
+    const datos = []
+    const responseHtml = await fetch("/adminSite/dashboard/pqrsf/readPqrsf.php")
+    const html = await responseHtml.text()
+    contentPqrsf.innerHTML = html
+    ///mandamos los datos a guardar
+    const idPqrsf = e.target.dataset.keypqrsf
+    const data = new FormData()
+    data.append("idPqrsf", idPqrsf)
+    const response = await fetch("/adminSite/model/selectPqrsf.php", {
+        method: "POST",
+        body: data
+    })
+    await response.json()
+        .then(data => datos.push(...data))
+    //actualizamos los campos con a informacion consultada en la BD
+    const title = document.querySelector("#title")
+    const radicado = document.querySelector("#radicado")
+    const estado = document.querySelector("#estado")
+    const tipoProceso = document.querySelector("#tipoProceso")
+    const area = document.querySelector("#area")
+    const alcance = document.querySelector("#alcance")
+    const descripcion = document.querySelector("#descripcion")
+    const apellidos = document.querySelector("#apellidos")
+    const nombres = document.querySelector("#nombres")
+    const tipoDocumento = document.querySelector("#tipoDocumento")
+    const numeroDocumento = document.querySelector("#numeroDocumento")
+    const telefono = document.querySelector("#telefono")
+    const correo = document.querySelector("#correo")
+    const sexo = document.querySelector("#sexo")
+    const direccion = document.querySelector("#direccion")
+    const barrio = document.querySelector("#barrio")
+    const departamento = document.querySelector("#departamento")
+    const eps = document.querySelector("#eps")
+    const dataKeyPqrsf = document.querySelector("#idpqrsf")
+    dataKeyPqrsf.dataset.keypqrsf = idPqrsf
+    title.innerHTML = `Controlar PQRSF con numero de Radicado ${datos[0].radicado}`
+    radicado.innerHTML = datos[0].radicado
+    estado.innerHTML = datos[0].estado
+    tipoProceso.innerHTML = tipoPro(datos[0].tipoProceso)
+    area.innerHTML = datos[0].area
+    alcance.innerHTML = datos[0].alcance
+    descripcion.innerHTML = datos[0].descripcion
+    apellidos.innerHTML = datos[0].apellidos
+    nombres.innerHTML = datos[0].nombres
+    tipoDocumento.innerHTML = datos[0].tipoDocumento
+    numeroDocumento.innerHTML = datos[0].numeroDocumento
+    telefono.innerHTML = datos[0].telefono
+    correo.innerHTML = datos[0].correo
+    switch (datos[0].sexo) {
+        case "M":
+            tipoSexo = "Masculino"
+            break;
+        case "F":
+            tipoSexo = "Femenino"
+            break;
+
+        default:
+            break;
+    }
+    sexo.innerHTML = tipoSexo
+    direccion.innerHTML = datos[0].direccion
+    barrio.innerHTML = datos[0].barrio
+    departamento.innerHTML = datos[0].departamento
+    eps.innerHTML = datos[0].eps
+    if (datos[0].estado == "Resuelto") {
+        estado.classList.remove("noSolve")
+        estado.classList.add("solve")
+    }
+
+}
+
+function tipoPro(proceso) {
+    switch (proceso) {
+        case "P":
+            proceso = "Peticion"
+            break
+        case "Q":
+            proceso = "Queja"
+            break
+        case "R":
+            proceso = "Reclamo"
+            break
+        case "S":
+            proceso = "Solicitud"
+            break
+        case "F":
+            proceso = "Felicitación"
+            break
+
+        default:
+            break
+    }
+    return proceso
+}
+
+async function solvePqrsf(e) {
+    const idPqrsf = (e.target.dataset.keypqrsf)
+
+    const data = new FormData();
+    data.append('idPqrsf', idPqrsf);
+    const response = await fetch("/adminSite/model/updatePqrsf.php", {
+        method: "POST",
+        body: data
+    })
+
+    const json = await response.json();
+    if (json == "true") {
+        msgInfo("PQRSF marcada como resuelta")
+        const estado = document.querySelector("#estado")
+        estado.classList.add("solve")
+        estado.innerHTML = "Resuelto"
+    } else {
+        msgInfo("No se pudo marcar la PQRSF como marcada, intenta de nuevo y si el problema persiste contacta el administador del sistema")
+    }
+}
+
+/*----------------------------------------
             EVENTS HANDLERS
 -----------------------------------------*/
 window.addEventListener('load', () => {
     if (window.location.pathname === "/adminSite/dashboard/noticias/") {
         allNews()
+    }
+})
+window.addEventListener('load', () => {
+    if (window.location.pathname === "/adminSite/dashboard/pqrsf/") {
+        allPqrsf()
     }
 })
 !(btnCreateNews == null) ? btnCreateNews.addEventListener("click", createNews) : null
@@ -322,3 +518,6 @@ window.addEventListener('load', () => {
 !(btnDeleteNews == null) ? btnDeleteNews.addEventListener("click", deleteNews) : null
 !(inputSearch == null) ? inputSearch.addEventListener("input", searchNews) : null
 !(inputSearchDate == null) ? inputSearchDate.addEventListener("input", searchNews) : null
+!(typePqrsf == null) ? typePqrsf.addEventListener("input", searchPqrsf) : null
+!(statePqrsf == null) ? statePqrsf.addEventListener("input", searchPqrsf) : null
+!(datePqrsf == null) ? datePqrsf.addEventListener("input", searchPqrsf) : null

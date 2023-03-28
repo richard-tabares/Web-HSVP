@@ -21,6 +21,8 @@ $area = $_POST['area'];
 $alcance = $_POST['alcance'];
 $descripcion = $_POST['descripcion'];
 $radicado = "";
+$fecha = date('Y-m-d');
+$estado = "Pendiente";
 //echo $nombres;
 
  if (isset($_POST['tipoProceso'])) {
@@ -45,7 +47,7 @@ $radicado = "";
     //echo ($var_tipotraido);
 } 
 //guardamos los datos de la PQRSF
-$sql = "insert into pqrs (tipoDocumento,numeroDocumento,nombres,apellidos,telefono,correo,sexo,direccion,barrio,departamento,municipio,eps,tipoProceso,area,alcance,descripcion,radicado) values ('" . $tipoDocumento . "'," . $documento . ",'" . $nombres . "','" . $apellidos . "'," . $telefono . ",'" . $correo . "','" . $genero . "','" . $direccion . "','" . $barrio . "','" . $dpto . "','" . $municipio . "','" . $eps . "','" . $tipoProceso . "','" . $area . "','" . $alcance . "','" . $descripcion . "','" . $radicado . "')";
+$sql = "insert into pqrs (tipoDocumento,numeroDocumento,nombres,apellidos,telefono,correo,sexo,direccion,barrio,departamento,municipio,eps,tipoProceso,area,alcance,descripcion,radicado,fecha,estado) values ('" . $tipoDocumento . "'," . $documento . ",'" . $nombres . "','" . $apellidos . "'," . $telefono . ",'" . $correo . "','" . $genero . "','" . $direccion . "','" . $barrio . "','" . $dpto . "','" . $municipio . "','" . $eps . "','" . $tipoProceso . "','" . $area . "','" . $alcance . "','" . $descripcion . "','" . $radicado . "','" . $fecha . "','" . $estado . "')";
 $conectar->query($sql);
 //consultamos el ultimo registro ingresado
 $sql = "select MAX(idpqrsf) as id from pqrs";
